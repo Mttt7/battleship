@@ -11,12 +11,50 @@ body {
 }
 
 .game-area {
+  background-color: gray;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.fleet {
+  background-color: purple;
+  height: 400px;
+  width: 400px;
+}
+.fleet .ship {
+  background-color: rgba(0, 64, 255, 0.806);
+  margin: 10px;
+  height: 33px;
+  z-index: 100;
+}
+.fleet .ship-1 {
+  width: 35px;
+}
+.fleet .ship-2 {
+  width: 70px;
+}
+.fleet .ship-3 {
+  width: 105px;
+}
+.fleet .ship-4 {
+  width: 140px;
+}
+.fleet .ship-5 {
+  width: 175px;
+}
+
+.boards {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  background-color: green;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-.game-area .board {
+.boards .board {
   border: solid yellow 2px;
   margin: 5px;
   padding: 20px;
@@ -30,35 +68,39 @@ body {
   grid-template-rows: repeat(10, 37px);
   grid-template-columns: repeat(10, 37px);
 }
-.game-area .board .cell {
+.boards .board .cell {
   height: 35px;
   width: 35px;
   background-color: black;
 }
-.game-area .cell::before {
+.boards .cell::before {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   left: -40px;
   top: 7px;
-  font-size: 20px;
+  font-size: 15px;
   color: black;
   content: attr(data-displayx);
 }
-.game-area .cell[data-displayy="1"]::after {
-  top: -38px;
+.boards .cell[data-displayy="1"]::after {
+  top: -34px;
 }
-.game-area .cell::after {
+.boards .cell::after {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   top: -18px;
   left: 12px;
-  font-size: 17px;
+  font-size: 15px;
   color: black;
   content: attr(data-displayy);
+}
+
+.draggable.dragging {
+  opacity: 0.5;
 }
 
 html, body, div, span, applet, object, iframe,

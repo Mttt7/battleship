@@ -1,11 +1,29 @@
+function drawShip(i){
+    let length = 0
+    if(i==0) length = 1
+    else if(i==1) length = 2
+    else if(i==2) length = 3
+    else if(i==3) length = 3
+    else if(i==4) length = 4
+    else if(i==5) length = 5
 
-export function drawMenu(){
-
+    const ship = document.createElement('div')
+    ship.draggable = true
+    ship.classList.add('draggable')
+    ship.classList.add('ship')
+    ship.classList.add(`ship-${length}`)
+    ship.classList.add('ship-alive')
+    return ship
 }
+
+
 
 export function drawGame(){
     const gameArea = document.createElement('div')
     gameArea.classList.add('game-area')
+
+    const boards = document.createElement('div')
+    boards.classList.add('boards')
 
     const playerBoard = drawBoard()
     playerBoard.classList.add('player-board')
@@ -13,9 +31,23 @@ export function drawGame(){
     const aiBoard = drawBoard()
     aiBoard.classList.add('ai-board')
 
-    gameArea.appendChild(playerBoard)
-    gameArea.appendChild(aiBoard)
+    
+    
 
+    const fleet = document.createElement('div')
+    for(let i = 0 ; i<6; i++){
+        fleet.appendChild(drawShip(i))
+    }
+    fleet.classList.add('fleet')
+
+    
+    boards.appendChild(playerBoard)
+    boards.appendChild(aiBoard)
+    gameArea.appendChild(fleet)
+    
+    gameArea.appendChild(boards)
+    
+    
     return gameArea
 
 }

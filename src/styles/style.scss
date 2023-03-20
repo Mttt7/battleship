@@ -4,13 +4,54 @@ body{
     background-color: aqua;
 }
 
+//VARIABLES
+$cell-size:35px;
+$fleet-size:400px;
+
 #container{
     height: 100%;
     width: 100%;
     background-color: red;
 }
 
+
 .game-area{
+    background-color: gray;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.fleet{
+    background-color: purple;
+    height: $fleet-size;
+    width: $fleet-size;
+    .ship{
+        background-color: rgba(0, 64, 255, 0.806);
+        margin: 10px;
+        height: $cell-size - 2px;
+        z-index: 100;
+    }
+    .ship-1{
+        width: $cell-size;
+    }
+    .ship-2{
+        width: $cell-size * 2;
+    }
+    .ship-3{
+        width: $cell-size * 3;
+    }
+    .ship-4{
+        width: $cell-size * 4;
+    }
+    .ship-5{
+        width: $cell-size * 5;
+    }
+}
+
+.boards{
+    width: fit-content;
+    background-color: green;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -22,11 +63,11 @@ body{
         height: fit-content;
         width: fit-content;
         display: grid;
-        grid-template-rows: repeat(10,37px);
-        grid-template-columns: repeat(10,37px);
+        grid-template-rows: repeat(10,$cell-size+2px);
+        grid-template-columns: repeat(10,$cell-size+2px);
         .cell{
-            height: 35px;
-            width: 35px;
+            height: $cell-size;
+            width: $cell-size;
             background-color: black;
         }
     }
@@ -38,12 +79,12 @@ body{
         justify-content: flex-end;
         left:-40px;
         top:7px;
-        font-size: 20px;
+        font-size: 15px;
         color: black;
         content: attr(data-displayx);
     }
     .cell[data-displayy="1"]::after{
-        top:-38px;
+        top:-34px;
     }
     .cell::after{
         position: relative;
@@ -52,14 +93,17 @@ body{
         justify-content: flex-start;
         top:-18px;
         left:12px;
-        font-size: 17px;
+        font-size: 15px;
         color:black;
         content: attr(data-displayy);
     }
     
 }
 
-
+//dragging effect:
+.draggable.dragging{
+    opacity: .5;
+}
 
 
 
