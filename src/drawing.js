@@ -12,7 +12,12 @@ function drawShip(i){
     ship.classList.add('draggable')
     ship.classList.add('ship')
     ship.classList.add(`ship-${length}`)
-    ship.classList.add('ship-alive')
+    ship.dataset.length = length
+    ship.classList.add('ship-horizontal')
+
+    
+    
+
     return ship
 }
 
@@ -35,11 +40,16 @@ export function drawGame(){
     
 
     const fleet = document.createElement('div')
+    const fleetHorizontal = document.createElement('div')
+    const fleetVertical = document.createElement('div')
     for(let i = 0 ; i<6; i++){
-        fleet.appendChild(drawShip(i))
+        fleetHorizontal.appendChild(drawShip(i))
     }
     fleet.classList.add('fleet')
-
+    fleetHorizontal.classList.add('fleet-horizontal')
+    fleetVertical.classList.add('fleet-vertical')
+    fleet.appendChild(fleetHorizontal)
+    fleet.appendChild(fleetVertical)
     
     boards.appendChild(playerBoard)
     boards.appendChild(aiBoard)
