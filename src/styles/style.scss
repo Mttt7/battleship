@@ -61,7 +61,7 @@ $fleet-size:400px;
     display: flex;
     
     align-items: flex-end;
-    justify-content: flex-end;
+    justify-content: flex-start;
     
 }
 .boards{
@@ -85,6 +85,9 @@ $fleet-size:400px;
             height: $cell-size;
             width: $cell-size;
             background-color: rgba(235, 207, 207, 0.517);
+        }
+        .cell-drop-hover{
+            background-color: rgba(0, 0, 0, 0.807);
         }
     }
 
@@ -120,7 +123,7 @@ $fleet-size:400px;
 
 //dragging effect:
 .draggable.dragging{
-    opacity: .5;
+    opacity: .2;
 }
 
 

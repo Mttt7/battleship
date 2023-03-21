@@ -13,6 +13,7 @@ function drawShip(i){
     ship.classList.add('ship')
     ship.classList.add(`ship-${length}`)
     ship.dataset.length = length
+    ship.dataset.direction = 'h'
     ship.classList.add('ship-horizontal')
 
     
@@ -71,9 +72,13 @@ function drawBoard(){
         for(let j = 0;j<10;j++){
             const cell = document.createElement('div')
             cell.classList.add('cell')
-            cell.dataset.id = `${i}-${j}`
+            cell.dataset.id = `${j}-${i}`
             if(j===0) cell.dataset.displayx = `${i+1}`
             if(i===0) cell.dataset.displayy = `${j+1}`
+
+            
+            
+
             board.appendChild(cell)
         }
         
