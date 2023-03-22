@@ -27,10 +27,11 @@ function makeShipsDragging(){
         cell.addEventListener('drop',()=>{
             const dragging = document.querySelector('.dragging')
             console.log(dragging)
+            
             if(checkPositionIsValid(convertIdToXY(cell.dataset.id),Number(dragging.dataset.length),dragging.dataset.direction)){
                 placeShip(convertIdToXY(cell.dataset.id),Number(dragging.dataset.length),dragging.dataset.direction)
             }
-            
+             
             cell.classList.remove('cell-drop-hover')
         })
         
@@ -115,7 +116,7 @@ function checkVacancy(pos,length,direction){
     return legalPositioning
 }
 function checkPositionIsValid(pos,length,direction){
-   console.log(checkVacancy(pos,length,direction))
+   if(checkVacancy(pos,length,direction)){
     if(direction === 'h'){
         if((pos[0]+length-1)<=9 && (pos[0]+length-1)>=0) return true
         else return false
@@ -124,7 +125,7 @@ function checkPositionIsValid(pos,length,direction){
         if(pos[1]+length-1<=9 && pos[1]+length-1>=0) return true
         else return false
     }
-    return null
+   }else return false
 }
 
 function addEventsListeners(){
