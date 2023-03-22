@@ -12,6 +12,7 @@ function drawShip(i){
     ship.classList.add('draggable')
     ship.classList.add('ship')
     ship.classList.add(`ship-${length}`)
+    ship.classList.add(`id-${i}`)
     ship.dataset.length = length
     ship.dataset.direction = 'h'
     ship.classList.add('ship-horizontal')

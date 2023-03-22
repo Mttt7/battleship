@@ -39,15 +39,46 @@ function makeShipsDragging(){
 
 }
 
-function placeShip(){
-    return null
+
+
+function placeShip(pos,length,direction){
+    const board = document.querySelector('.player-board')
+    const fleetHoriontal = document.querySelector('.fleet-horizontal')
+    const fleetVertical = document.querySelector('.fleet-vertical')
+    let startingCell = board.querySelector(`[data-id="${pos[0]}-${pos[1]}"]`)
+    
+    if(direction==='h'){
+        for(let i = 1;i<=length;i++){
+            console.log(startingCell)
+            console.log(i,'/',length)
+            startingCell.style.backgroundColor = 'black'
+            startingCell.dataset.vacant = "0"
+            
+    
+    
+            startingCell = board.querySelector(`[data-id="${pos[0]+i}-${pos[1]}"]`)
+        }
+        const placedShip = document.querySelector('.dragging')
+        fleetHoriontal.removeChild(placedShip)
+    }
+    else if(direction==='v'){
+        for(let i = 1;i<=length;i++){
+            startingCell.style.backgroundColor = 'black'
+            startingCell.dataset.vacant = "0"
+            startingCell = board.querySelector(`[data-id="${pos[0]}-${pos[1]+i}"]`)
+        }
+        const placedShip = document.querySelector('.dragging')
+        fleetVertical.removeChild(placedShip)
+    }
+    
+    
+    
 }
 function convertIdToXY(str){
     return [Number(str[0]),Number(str[2])]
 }
 
-function checkVacancy(pos,length,direction){
-    let legalPositioning = true
+//arrays of adjacent cells-------------------------------
     const horizontalFromEvery = [[0,-1],[0,1],[0,0]]
     const horizontalLeftEdge = [[-1,-1],[-1,0],[-1,1]]
     const horizontalRightEdge = [[1,-1],[1,0],[1,1]]
@@ -55,12 +86,16 @@ function checkVacancy(pos,length,direction){
     const verticalFromEvery = [[-1,0],[1,0],[0,0]]
     const verticalTopEdge = [[-1,-1],[0,-1],[1,-1]]
     const verticalBottomEdge = [[-1,1],[0,1],[1,1]]
+//-------------------------------------------------------
+
+function checkVacancy(pos,length,direction){
+    let legalPositioning = true
+    
 
     const startingCell = document.querySelector(`[data-id="${pos[0]}-${pos[1]}"]`)
 
     if(direction==='h'){
         for(let i=0; i<length; i++){
-            let current = document.querySelector(`[data-id="${pos[0]+i}-${pos[1]}"]`)
             if(i === 0 && pos[0]!==0){
                 horizontalLeftEdge.forEach(v=>{
                     try{
