@@ -14,10 +14,6 @@ function makeShipsDragging(){
     })
 
     cells.forEach(cell=>{
-
-        cell.addEventListener('',(e)=>{
-            
-        })
         //hover effect
         cell.addEventListener('dragover',(e)=>{
             e.preventDefault()
@@ -25,15 +21,15 @@ function makeShipsDragging(){
            
         })
         cell.addEventListener('dragleave',(e)=>{
-            
             cell.classList.remove('cell-drop-hover')
-           
         })
         
         cell.addEventListener('drop',()=>{
             const dragging = document.querySelector('.dragging')
             console.log(dragging)
-            console.log(checkPositionIsValid(convertIdToXY(cell.dataset.id),Number(dragging.dataset.length),dragging.dataset.direction))
+            if(checkPositionIsValid(convertIdToXY(cell.dataset.id),Number(dragging.dataset.length),dragging.dataset.direction)){
+                placeShip(convertIdToXY(cell.dataset.id),Number(dragging.dataset.length),dragging.dataset.direction)
+            }
             
             cell.classList.remove('cell-drop-hover')
         })
@@ -42,10 +38,84 @@ function makeShipsDragging(){
 
 }
 
+function placeShip(){
+    return null
+}
 function convertIdToXY(str){
     return [Number(str[0]),Number(str[2])]
 }
+
+function checkVacancy(pos,length,direction){
+    let legalPositioning = true
+    const horizontalFromEvery = [[0,-1],[0,1],[0,0]]
+    const horizontalLeftEdge = [[-1,-1],[-1,0],[-1,1]]
+    const horizontalRightEdge = [[1,-1],[1,0],[1,1]]
+
+    const verticalFromEvery = [[-1,0],[1,0],[0,0]]
+    const verticalTopEdge = [[-1,-1],[0,-1],[1,-1]]
+    const verticalBottomEdge = [[-1,1],[0,1],[1,1]]
+
+    const startingCell = document.querySelector(`[data-id="${pos[0]}-${pos[1]}"]`)
+
+    if(direction==='h'){
+        for(let i=0; i<length; i++){
+            let current = document.querySelector(`[data-id="${pos[0]+i}-${pos[1]}"]`)
+            if(i === 0 && pos[0]!==0){
+                horizontalLeftEdge.forEach(v=>{
+                    try{
+                        let t = document.querySelector(`[data-id="${pos[0]+i+v[0]}-${pos[1]+v[1]}"]`)
+                        if(t.dataset.vacant==="0") legalPositioning = false
+                    }catch(e){}
+                })
+            }
+            if(i === length-1){
+                horizontalRightEdge.forEach(v=>{
+                    try{
+                        let t = document.querySelector(`[data-id="${pos[0]+i+v[0]}-${pos[1]+v[1]}"]`)
+                        if(t.dataset.vacant==="0") legalPositioning = false
+                    }catch(e){}
+                })
+            }
+            horizontalFromEvery.forEach(v=>{
+                try{
+                    let t = document.querySelector(`[data-id="${pos[0]+i+v[0]}-${pos[1]+v[1]}"]`)
+                    if(t.dataset.vacant==="0") legalPositioning = false
+                }catch(e){}
+            })
+        }
+    }
+    else if(direction==='v'){
+        for(let i=0; i<length; i++){
+            let current = document.querySelector(`[data-id="${pos[0]}-${pos[1]+1}"]`)
+            if(i === 0 && pos[1]!==0){
+                verticalTopEdge.forEach(v=>{
+                    try{
+                        let t = document.querySelector(`[data-id="${pos[0]+v[0]}-${pos[1]+i+v[1]}"]`)
+                        if(t.dataset.vacant==="0") legalPositioning = false
+                    }catch(e){}
+                })
+            }
+            if(i === length-1){
+                verticalBottomEdge.forEach(v=>{
+                    try{
+                        let t = document.querySelector(`[data-id="${pos[0]+v[0]}-${pos[1]+i+v[1]}"]`)
+                        if(t.dataset.vacant==="0") legalPositioning = false
+                    }catch(e){}
+                })
+            }
+            verticalFromEvery.forEach(v=>{
+                try{
+                    let t = document.querySelector(`[data-id="${pos[0]+v[0]}-${pos[1]+i+v[1]}"]`)
+                    if(t.dataset.vacant==="0") legalPositioning = false
+                }catch(e){}
+            })
+        }
+    }
+
+    return legalPositioning
+}
 function checkPositionIsValid(pos,length,direction){
+   console.log(checkVacancy(pos,length,direction))
     if(direction === 'h'){
         if((pos[0]+length-1)<=9 && (pos[0]+length-1)>=0) return true
         else return false

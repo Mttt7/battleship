@@ -75,10 +75,7 @@ function drawBoard(){
             cell.dataset.id = `${j}-${i}`
             if(j===0) cell.dataset.displayx = `${i+1}`
             if(i===0) cell.dataset.displayy = `${j+1}`
-
-            
-            
-
+            cell.dataset.vacant = 1
             board.appendChild(cell)
         }
         
